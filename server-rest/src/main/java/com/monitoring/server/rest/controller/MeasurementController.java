@@ -1,7 +1,7 @@
 package com.monitoring.server.rest.controller;
 
 import com.monitoring.model.MeasurementDto;
-import com.monitoring.model.Response;
+import com.monitoring.model.ResponseDto;
 import com.monitoring.service.MeasurementServer;
 import com.monitoring.service.MeasurementService;
 import lombok.RequiredArgsConstructor;
@@ -20,23 +20,23 @@ public class MeasurementController implements MeasurementServer {
 
     @PostMapping
     @Override
-    public Response receiveOne(@RequestBody MeasurementDto measurement) {
+    public ResponseDto receiveOne(@RequestBody MeasurementDto measurement) {
         try {
             measurementService.create(measurement);
-            return Response.success();
+            return ResponseDto.success();
         } catch (Exception ex) {
-            return Response.error(ex.getMessage());
+            return ResponseDto.error(ex.getMessage());
         }
     }
 
     @PostMapping("/list")
     @Override
-    public Response receiveMany(@RequestBody List<MeasurementDto> measurements) {
+    public ResponseDto receiveMany(@RequestBody List<MeasurementDto> measurements) {
         try {
             measurements.forEach(measurementService::create);
-            return Response.success();
+            return ResponseDto.success();
         } catch (Exception ex) {
-            return Response.error(ex.getMessage());
+            return ResponseDto.error(ex.getMessage());
         }
     }
 }

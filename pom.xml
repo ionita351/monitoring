@@ -22,7 +22,10 @@
 		<module>server-rest</module>
 		<module>client-rest</module>
 		<module>client-feign</module>
-	</modules>
+        <module>grpc-stub</module>
+		<module>server-grpc</module>
+        <module>client-grpc</module>
+    </modules>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
@@ -49,6 +52,12 @@
 			<dependency>
 				<groupId>com.example</groupId>
 				<artifactId>model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>grpc-stub</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

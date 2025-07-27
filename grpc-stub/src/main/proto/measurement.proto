@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package net.devh.boot.grpc.example;
+
+option java_multiple_files = true;
+option java_package = "com.monitoring.stub";
+
+service MeasurementStubProvider {
+
+  rpc sendOne(Measurement) returns (Response) {}
+
+  rpc sendMany(Measurements) returns (Response) {}
+}
+message Measurement {
+   string device_number = 1;
+   double latitude = 2;
+   double longitude = 3;
+   bool alert = 4;
+}
+
+message Measurements {
+    repeated Measurement messages = 1;
+}
+
+message Response {
+   bool success = 1;
+   string error_message = 2;
+}

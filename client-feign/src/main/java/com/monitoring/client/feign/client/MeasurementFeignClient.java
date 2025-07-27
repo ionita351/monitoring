@@ -1,7 +1,7 @@
 package com.monitoring.client.feign.client;
 
 import com.monitoring.model.MeasurementDto;
-import com.monitoring.model.Response;
+import com.monitoring.model.ResponseDto;
 import com.monitoring.service.MeasurementClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,20 +16,20 @@ public class MeasurementFeignClient implements MeasurementClient {
     private MeasurementFeignContract client;
 
     @Override
-    public Response sendOne(MeasurementDto measurement) {
-        ResponseEntity<Response> responseEntity = client.sendOne(measurement);
+    public ResponseDto sendOne(MeasurementDto measurement) {
+        ResponseEntity<ResponseDto> responseEntity = client.sendOne(measurement);
         return extractBodyFromResponseEntity(responseEntity);
     }
 
     @Override
-    public Response sendMany(List<MeasurementDto> measurements) {
-        ResponseEntity<Response> responseEntity = client.sendMany(measurements);
+    public ResponseDto sendMany(List<MeasurementDto> measurements) {
+        ResponseEntity<ResponseDto> responseEntity = client.sendMany(measurements);
         return extractBodyFromResponseEntity(responseEntity);
     }
 
-    private static Response extractBodyFromResponseEntity(ResponseEntity<Response> responseEntity) {
+    private static ResponseDto extractBodyFromResponseEntity(ResponseEntity<ResponseDto> responseEntity) {
         if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-            return Response.error("Http return code: " + responseEntity.getStatusCode());
+            return ResponseDto.error("Http return code: " + responseEntity.getStatusCode());
         }
         return responseEntity.getBody();
     }

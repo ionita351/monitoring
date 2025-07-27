@@ -1,7 +1,7 @@
 package com.monitoring.client.rest.client;
 
 import com.monitoring.model.MeasurementDto;
-import com.monitoring.model.Response;
+import com.monitoring.model.ResponseDto;
 import com.monitoring.service.MeasurementClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,27 +20,27 @@ public class MeasurementRestClient implements MeasurementClient {
             .build();
 
     @Override
-    public Response sendOne(MeasurementDto measurement) {
-        ResponseEntity<Response> responseEntity = CLIENT.post()
+    public ResponseDto sendOne(MeasurementDto measurement) {
+        ResponseEntity<ResponseDto> responseEntity = CLIENT.post()
                 .body(measurement)
                 .retrieve()
-                .toEntity(Response.class);
+                .toEntity(ResponseDto.class);
         return extractBodyFromResponseEntity(responseEntity);
     }
 
     @Override
-    public Response sendMany(List<MeasurementDto> measurements) {
-        ResponseEntity<Response> responseEntity = CLIENT.post()
+    public ResponseDto sendMany(List<MeasurementDto> measurements) {
+        ResponseEntity<ResponseDto> responseEntity = CLIENT.post()
                 .uri("/list")
                 .body(measurements)
                 .retrieve()
-                .toEntity(Response.class);
+                .toEntity(ResponseDto.class);
         return extractBodyFromResponseEntity(responseEntity);
     }
 
-    private static Response extractBodyFromResponseEntity(ResponseEntity<Response> responseEntity) {
+    private static ResponseDto extractBodyFromResponseEntity(ResponseEntity<ResponseDto> responseEntity) {
         if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-            return Response.error("Http return code: " + responseEntity.getStatusCode());
+            return ResponseDto.error("Http return code: " + responseEntity.getStatusCode());
         }
         return responseEntity.getBody();
     }

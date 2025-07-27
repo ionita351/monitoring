@@ -1,11 +1,11 @@
 package com.monitoring.service;
 
 import com.monitoring.model.MeasurementDto;
-import com.monitoring.model.Response;
+import com.monitoring.model.ResponseDto;
 
 import java.util.List;
 
 public interface MeasurementServer {
-    Response receiveOne(MeasurementDto measurement);
-    Response receiveMany(List<MeasurementDto> measurements);
+    ResponseDto receiveOne(MeasurementDto measurement);
+    ResponseDto receiveMany(List<MeasurementDto> measurements);
 }
