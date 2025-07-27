@@ -1,8 +1,7 @@
 package com.measurement.client.rest;
 
-import com.monitoring.client.rest.MeasurementRestClient;
+import com.monitoring.client.rest.client.MeasurementRestClient;
 import com.monitoring.model.MeasurementDto;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

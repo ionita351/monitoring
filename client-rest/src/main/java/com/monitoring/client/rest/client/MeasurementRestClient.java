@@ -1,4 +1,4 @@
-package com.monitoring.client.rest;
+package com.monitoring.client.rest.client;
 
 import com.monitoring.model.MeasurementDto;
 import com.monitoring.model.Response;
