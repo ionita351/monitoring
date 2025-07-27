@@ -1,0 +1,1 @@
+insert into device(id, device_number) values ('5f3aa66f-d333-4dde-9faa-27f4198b6886', 'D1');

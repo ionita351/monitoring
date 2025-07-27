@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-tables #текстовый идентификатор (Обязателен)
+      author: Oleg Ivanov # автор (Обязателен)
+      changes:
+        - createTable: # создаем новую таблицу
+            tableName: measurement
+            columns: # объявления колонок
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: device_number
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: time_stamp
+                  type: timestamp
+              - column:
+                  name: latitude
+                  type: double precision
+              - column:
+                  name: longitude
+                  type: double precision
+              - column:
+                  name: alert
+                  type: boolean
+        - createTable:
+            tableName: device
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: device_number
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: measurement_id
+                  type: uuid
+        - createTable:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: state_sign
+                  type: varchar(20)
+              - column:
+                  name: brand
+                  type: varchar(50)
+              - column:
+                  name: device_id
+                  type: uuid
