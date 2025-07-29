@@ -18,44 +18,34 @@ public class MeasurementServerGrpc extends MeasurementStubProviderGrpc.Measureme
 
     @Override
     public void sendOne(Measurement request, StreamObserver<Response> responseObserver) {
-        try {
-
+        receive(responseObserver, () -> {
             measurementService.create(MeasurementConverter.toMeasurementDto(request));
-
-            Response response = Response.newBuilder()
-                    .setSuccess(true)
-                    .build();
-            responseObserver.onNext(response);
-            responseObserver.onCompleted();
-        } catch (Throwable throwable) {
-            Response response = Response.newBuilder()
-                    .setSuccess(false)
-                    .setErrorMessage(throwable.getLocalizedMessage())
-                    .build();
-            responseObserver.onNext(response);
-            responseObserver.onCompleted();
-        }
+        });
     }
 
     @Override
     public void sendMany(Measurements request, StreamObserver<Response> responseObserver) {
-        try {
+        receive(responseObserver, () -> {
             request.getMessagesList().stream()
                     .map(MeasurementServerGrpc::toDto)
-                    .forEach(e -> measurementService.create(e));
-            Response response = Response.newBuilder()
+                    .forEach(measurementService::create);
+        });
+    }
+
+    public static void receive(StreamObserver<Response> responseObserver, Runnable executor) {
+        Response response;
+        try {
+            executor.run();
+            response = Response.newBuilder()
                     .setSuccess(true)
                     .build();
-            responseObserver.onNext(response);
-            responseObserver.onCompleted();
         } catch (Throwable throwable) {
-            Response response = Response.newBuilder()
-                    .setSuccess(false)
+            response = Response.newBuilder().setSuccess(false)
                     .setErrorMessage(throwable.getLocalizedMessage())
                     .build();
-            responseObserver.onNext(response);
-            responseObserver.onCompleted();
         }
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
 
     }
 

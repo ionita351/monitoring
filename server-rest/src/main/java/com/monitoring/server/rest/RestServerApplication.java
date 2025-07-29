@@ -1,14 +1,14 @@
-package com.monitoring.server.grpc;
+package com.monitoring.server.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.monitoring")
-public class MeasurementGrpcServerApplication {
+@ComponentScan(basePackages = {"com.monitoring"})
+public class RestServerApplication {
 
     public static void main(String... args) {
-        SpringApplication.run(MeasurementGrpcServerApplication.class, args);
+        SpringApplication.run(RestServerApplication.class, args);
     }
 }

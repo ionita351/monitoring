@@ -1,6 +1,6 @@
-package com.monitoring.client.ws;
+package com.monitoring.client.grpc;
 
-import com.monitoring.client.ws.client.MeasurementWsClient;
+import com.monitoring.client.grpc.service.GrpcClientService;
 import com.monitoring.model.MeasurementDto;
 import com.monitoring.model.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,21 +10,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
-
 import java.util.List;
-
+import java.util.UUID;
 
 @SpringBootApplication
 @ComponentScan("com.monitoring")
-public class ClientWsApplication implements CommandLineRunner {
+public class GrpcClientApplication implements CommandLineRunner {
 
     public static void main(String... args) {
-        SpringApplication.run(ClientWsApplication.class, args);
+        SpringApplication.run(GrpcClientApplication.class, args);
     }
 
     @Autowired
-    private MeasurementWsClient client;
+    private GrpcClientService service;
 
     @Override
     public void run(String... args) throws Exception {
@@ -35,10 +33,9 @@ public class ClientWsApplication implements CommandLineRunner {
                 1D,
                 2D,
                 true);
-        ResponseDto dto = client.sendOne(DATA);
+        ResponseDto dto = service.sendOne(DATA);
         System.out.println(dto);
-
-        dto = client.sendMany(List.of(DATA));
+        dto = service.sendMany(List.of(DATA));
         System.out.println(dto);
     }
 }

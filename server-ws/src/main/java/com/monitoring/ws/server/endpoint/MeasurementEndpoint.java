@@ -40,7 +40,7 @@ public class MeasurementEndpoint {
         });
     }
 
-    public <S> JAXBElement<WsResponse> receive(Runnable executor) {
+    public JAXBElement<WsResponse> receive(Runnable executor) {
         WsResponse response = new WsResponse();
         try {
             executor.run();
