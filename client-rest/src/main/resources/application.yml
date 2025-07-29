@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: client-rest
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:${EUREKF_PORT:8761}/eureka/
