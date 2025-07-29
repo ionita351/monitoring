@@ -56,9 +56,9 @@
                 </executions>
                 <configuration>
                     <packageName>com.monitoring.ws.wsdl</packageName>
-                    <wsdlUrls>
-                        <wsdlUrl>http://localhost:8080/ws/measurement.wsdl</wsdlUrl>
-                    </wsdlUrls>
+                    <wsdlFiles>
+                        <file>${project.basedir}/src/main/resources/measurement.wsdl</file>
+                    </wsdlFiles>
                     <sourceDestDir>${sourcesDir}</sourceDestDir>
                     <destDir>${classesDir}</destDir>
                     <extension>true</extension>

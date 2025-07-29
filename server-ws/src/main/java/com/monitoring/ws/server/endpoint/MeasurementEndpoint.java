@@ -34,7 +34,7 @@ public class MeasurementEndpoint {
     @ResponsePayload
     public JAXBElement<WsResponse> receiveMany(@RequestPayload JAXBElement<WsMeasurements> request) {
         return receive(() -> {
-            request.getValue().getMeasurement().forEach(wsMeasurement -> {
+            request.getValue().getMeasurements().forEach(wsMeasurement -> {
                 measurementService.create(toMeasurementDto(wsMeasurement));
             });
         });

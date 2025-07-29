@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://com.monitoring/measurement" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://com.monitoring/measurement" targetNamespace="http://com.monitoring/measurement">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://com.monitoring/measurement">
+
+            <xs:element name="receiveOneRequest" type="tns:wsMeasurement"/>
+            <xs:element name="receiveOneResponse" type="tns:wsResponse"/>
+
+            <xs:element name="receiveManyRequest" type="tns:wsMeasurements"/>
+            <xs:element name="receiveManyResponse" type="tns:wsResponse"/>
+
+            <xs:complexType name="wsMeasurement">
+                <xs:sequence>
+                    <xs:element name="deviceNumber" type="xs:string"/>
+                    <xs:element name="latitude" type="xs:double"/>
+                    <xs:element name="longitude" type="xs:double"/>
+                    <xs:element name="alert" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="wsMeasurements">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="measurements" type="tns:wsMeasurement"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="wsResponse">
+                <xs:sequence>
+                    <xs:element name="success" type="xs:boolean"/>
+                    <xs:element name="errorMessage" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="receiveOneResponse">
+        <wsdl:part element="tns:receiveOneResponse" name="receiveOneResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="receiveManyRequest">
+        <wsdl:part element="tns:receiveManyRequest" name="receiveManyRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="receiveOneRequest">
+        <wsdl:part element="tns:receiveOneRequest" name="receiveOneRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="receiveManyResponse">
+        <wsdl:part element="tns:receiveManyResponse" name="receiveManyResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="MeasurementPortService">
+        <wsdl:operation name="receiveOne">
+            <wsdl:input message="tns:receiveOneRequest" name="receiveOneRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:receiveOneResponse" name="receiveOneResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="receiveMany">
+            <wsdl:input message="tns:receiveManyRequest" name="receiveManyRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:receiveManyResponse" name="receiveManyResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="MeasurementPortServiceSoap11" type="tns:MeasurementPortService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="receiveOne">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="receiveOneRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="receiveOneResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="receiveMany">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="receiveManyRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="receiveManyResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="MeasurementPortServiceService">
+        <wsdl:port binding="tns:MeasurementPortServiceSoap11" name="MeasurementPortServiceSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
