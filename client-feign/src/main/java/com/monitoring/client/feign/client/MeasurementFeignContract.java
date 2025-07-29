@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@FeignClient(name = "measurementFeignClient", url = "http://localhost:9090/measurement")
+@FeignClient("SERVER-REST")
 public interface MeasurementFeignContract {
 
-    @PostMapping(produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/measurement", produces = "application/json", consumes = "application/json")
     ResponseEntity<ResponseDto> sendOne(MeasurementDto measurement);
 
-    @PostMapping(value = "/list", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/measurement/list", produces = "application/json", consumes = "application/json")
     ResponseEntity<ResponseDto> sendMany(List<MeasurementDto> measurements);
 }
