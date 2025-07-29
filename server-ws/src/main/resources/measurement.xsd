@@ -1,0 +1,31 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://com.monitoring/measurement"
+           targetNamespace="http://com.monitoring/measurement" elementFormDefault="qualified">
+
+    <xs:element name="receiveOneRequest" type="tns:wsMeasurement"/>
+    <xs:element name="receiveOneResponse" type="tns:wsResponse"/>
+
+    <xs:element name="receiveManyRequest" type="tns:wsMeasurements"/>
+    <xs:element name="receiveManyResponse" type="tns:wsResponse"/>
+
+    <xs:complexType name="wsMeasurement">
+        <xs:sequence>
+            <xs:element name="deviceNumber" type="xs:string"/>
+            <xs:element name="latitude" type="xs:double"/>
+            <xs:element name="longitude" type="xs:double"/>
+            <xs:element name="alert" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="wsMeasurements">
+        <xs:sequence>
+            <xs:element name="measurements" type="tns:wsMeasurement" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="wsResponse">
+        <xs:sequence>
+            <xs:element name="success" type="xs:boolean"/>
+            <xs:element name="errorMessage" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

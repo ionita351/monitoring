@@ -25,6 +25,8 @@
         <module>grpc-stub</module>
 		<module>server-grpc</module>
         <module>client-grpc</module>
+        <module>server-ws</module>
+        <module>client-ws</module>
     </modules>
 
 	<properties>
