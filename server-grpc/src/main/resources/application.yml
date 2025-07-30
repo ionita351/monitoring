@@ -5,3 +5,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:${EUREKA_PORT:8761}/eureka/
+grpc:
+  server:
+    port: 9090
