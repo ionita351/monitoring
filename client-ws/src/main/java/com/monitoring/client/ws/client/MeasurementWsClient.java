@@ -8,7 +8,6 @@ import com.monitoring.ws.wsdl.WsMeasurement;
 import com.monitoring.ws.wsdl.WsMeasurements;
 import com.monitoring.ws.wsdl.WsResponse;
 import jakarta.xml.bind.JAXBElement;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -18,12 +17,13 @@ import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import java.util.List;
 
 @Component
-public class MeasurementWsClient  extends WebServiceGatewaySupport {
+public class MeasurementWsClient  extends WebServiceGatewaySupport implements MeasurementClient {
     private final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 
     @Autowired
     private DiscoveryClient discoveryClient;
 
+    @Override
     public ResponseDto sendOne(MeasurementDto measurement) {
         try {
             ServiceInstance serviceInstance = discoveryClient.getInstances("server-ws").stream().findFirst().orElse(null);
@@ -37,6 +37,7 @@ public class MeasurementWsClient  extends WebServiceGatewaySupport {
         }
     }
 
+    @Override
     public ResponseDto sendMany(List<MeasurementDto> measurements) {
         try {
             ServiceInstance serviceInstance = discoveryClient.getInstances("server-ws").stream().findFirst().orElse(null);

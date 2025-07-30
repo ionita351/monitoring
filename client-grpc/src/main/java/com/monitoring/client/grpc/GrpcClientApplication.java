@@ -1,41 +1,41 @@
 package com.monitoring.client.grpc;
 
-import com.monitoring.client.grpc.service.GrpcClientService;
 import com.monitoring.model.MeasurementDto;
 import com.monitoring.model.ResponseDto;
+import com.monitoring.service.MeasurementClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @SpringBootApplication(scanBasePackages = "com.monitoring")
 @EnableDiscoveryClient
-public class GrpcClientApplication implements CommandLineRunner {
+@EnableScheduling
+public class GrpcClientApplication {
+    private static MeasurementDto MEASUREMENT = new MeasurementDto(
+            UUID.randomUUID(),
+            "APU_GRPC",
+            null,
+            1D,
+            2D,
+            true);
 
     public static void main(String... args) {
         SpringApplication.run(GrpcClientApplication.class, args);
     }
 
     @Autowired
-    private GrpcClientService service;
+    private MeasurementClient client;
 
-    @Override
-    public void run(String... args) throws Exception {
-        MeasurementDto DATA = new MeasurementDto(
-                UUID.randomUUID(),
-                "DN",
-                LocalDateTime.now(),
-                1D,
-                2D,
-                true);
-        ResponseDto dto = service.sendOne(DATA);
-        System.out.println(dto);
-        dto = service.sendMany(List.of(DATA));
-        System.out.println(dto);
+    @Scheduled(cron = "*/10 * * * * *")
+    void generateMeasurements() {
+        ResponseDto dto = client.sendOne(MEASUREMENT);
+        log.info("APU_GRPC. Send message. Have got: " + dto);
     }
 }

@@ -1,42 +1,41 @@
 package com.monitoring.client.feign;
 
-import com.monitoring.client.feign.client.MeasurementFeignClient;
 import com.monitoring.model.MeasurementDto;
 import com.monitoring.model.ResponseDto;
+import com.monitoring.service.MeasurementClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
-@SpringBootApplication
+@Slf4j
+@SpringBootApplication(scanBasePackages = "com.monitoring")
 @EnableFeignClients
-public class FeignClientApplication implements CommandLineRunner {
+@EnableScheduling
+public class FeignClientApplication {
+    private static MeasurementDto MEASUREMENT = new MeasurementDto(
+            UUID.randomUUID(),
+            "APU_FEIGN",
+            null,
+            1D,
+            2D,
+            true);
 
-    public static void main(String... args){
+    public static void main(String... args) {
         SpringApplication.run(FeignClientApplication.class, args);
     }
 
     @Autowired
-    private MeasurementFeignClient client;
+    private MeasurementClient client;
 
-    @Override
-    public void run(String... args) throws Exception {
-        MeasurementDto DATA = new MeasurementDto(
-                UUID.randomUUID(),
-                "DN",
-                LocalDateTime.now(),
-                1D,
-                2D,
-                true);
-        ResponseDto dto = client.sendOne(DATA);
-        System.out.println(dto);
-        dto = client.sendMany(List.of(DATA));
-        System.out.println(dto);
+    @Scheduled(cron = "*/10 * * * * *")
+    void generateMeasurements() {
+        ResponseDto dto = client.sendOne(MEASUREMENT);
+        log.info("APU_FEIGN. Send message. Have got: " + dto);
     }
 }
