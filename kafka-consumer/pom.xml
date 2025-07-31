@@ -27,11 +27,6 @@
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>model</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

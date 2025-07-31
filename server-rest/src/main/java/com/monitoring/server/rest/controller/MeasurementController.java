@@ -1,9 +1,9 @@
 package com.monitoring.server.rest.controller;
 
+import com.monitoring.common.service.MeasurementService;
 import com.monitoring.model.MeasurementDto;
 import com.monitoring.model.ResponseDto;
 import com.monitoring.service.MeasurementServer;
-import com.monitoring.service.MeasurementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

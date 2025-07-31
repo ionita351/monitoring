@@ -1,4 +1,4 @@
-package com.monitoring.service;
+package com.monitoring.common.service;
 
 import com.monitoring.model.MeasurementDto;
 

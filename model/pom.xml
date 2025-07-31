@@ -11,4 +11,11 @@
 
     <artifactId>model</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>kafka-producer</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

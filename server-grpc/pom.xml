@@ -29,17 +29,16 @@
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>model</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.example</groupId>
             <artifactId>data-jpa</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>grpc-stub</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>server-common</artifactId>
         </dependency>
     </dependencies>
 

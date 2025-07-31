@@ -1,6 +1,5 @@
 package com.monitoring.kafka.consumer.config;
 
-import com.monitoring.model.MeasurementDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -19,11 +18,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @Configuration
 public class KafkaConsumerConfig {
-    @Value(value = "${kafka.bootstrapAddress}")
+    @Value(value = "${kafka.bootstrapAddress:http://localhost:1111}")
     private String bootstrapAddress;
 
     @Bean
-    public ConsumerFactory<String, MeasurementDto> consumerFactory() {
+    public ConsumerFactory<String, Object> consumerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         configProps.put(ConsumerConfig.GROUP_ID_CONFIG, "chat");
@@ -33,12 +32,12 @@ public class KafkaConsumerConfig {
                 .map(e -> e.getKey() + " " + e.getValue())
                 .collect(Collectors.joining(", ")));
         return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(),
-                new JsonDeserializer<>(MeasurementDto.class));
+                new JsonDeserializer<>(Object.class));
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, MeasurementDto> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, MeasurementDto> factory =
+    public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Object> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;

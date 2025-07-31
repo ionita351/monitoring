@@ -1,7 +1,7 @@
 package com.monitoring.server.grpc.service;
 
+import com.monitoring.common.service.MeasurementService;
 import com.monitoring.server.grpc.mapper.MeasurementMapper;
-import com.monitoring.service.MeasurementService;
 import com.monitoring.stub.Measurement;
 import com.monitoring.stub.MeasurementStubProviderGrpc;
 import com.monitoring.stub.Measurements;

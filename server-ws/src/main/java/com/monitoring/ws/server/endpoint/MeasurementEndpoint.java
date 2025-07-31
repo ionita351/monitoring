@@ -1,6 +1,6 @@
 package com.monitoring.ws.server.endpoint;
 
-import com.monitoring.service.MeasurementService;
+import com.monitoring.common.service.MeasurementService;
 import com.monitoring.ws.server.mapper.MeasurementMapper;
 import jakarta.xml.bind.JAXBElement;
 import lombok.RequiredArgsConstructor;

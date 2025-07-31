@@ -30,7 +30,8 @@
 		<module>discovery-server</module>
 		<module>kafka-producer</module>
 		<module>kafka-consumer</module>
-	</modules>
+        <module>server-common</module>
+    </modules>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
@@ -89,6 +90,12 @@
 			<dependency>
 				<groupId>com.example</groupId>
 				<artifactId>model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>server-common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

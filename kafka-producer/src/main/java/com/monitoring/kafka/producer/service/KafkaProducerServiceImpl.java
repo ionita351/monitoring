@@ -1,23 +1,22 @@
 package com.monitoring.kafka.producer.service;
 
-import com.monitoring.model.MeasurementDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KafkaProducerServiceImpl implements KafkaProducerService {
-    private final KafkaTemplate<String, MeasurementDto> kafkaTemplate;
+public class KafkaProducerServiceImpl<T> implements KafkaProducerService<T> {
+    private final KafkaTemplate<String, T> kafkaTemplate;
+
+    @Value("kafka.topic:measurement")
+    public String topic;
 
     @Override
-    public void send(String topic, MeasurementDto message) {
-        try {
-            kafkaTemplate.send(topic, message);
-        } catch (Throwable throwable) {
-            log.error("Sending to KAFKA error: " + throwable.getLocalizedMessage());
-        }
+    public void send(String key, T message) {
+        kafkaTemplate.send(topic, key, message);
     }
 }
