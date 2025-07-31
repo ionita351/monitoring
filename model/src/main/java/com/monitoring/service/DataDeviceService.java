@@ -5,7 +5,7 @@ import com.monitoring.model.DeviceDto;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface DeviceService {
+public interface DataDeviceService {
     Optional<DeviceDto> findById(UUID id);
     DeviceDto create(DeviceDto device);
 }

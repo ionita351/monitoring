@@ -41,7 +41,7 @@
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>model</artifactId>
+            <artifactId>data-jpa</artifactId>
         </dependency>
     </dependencies>
 

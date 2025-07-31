@@ -3,7 +3,7 @@ package com.monitoring.jpa.service;
 import com.monitoring.jpa.mapper.DeviceMapper;
 import com.monitoring.jpa.repository.DeviceRepository;
 import com.monitoring.model.DeviceDto;
-import com.monitoring.service.DeviceService;
+import com.monitoring.service.DataDeviceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,7 @@ import java.util.UUID;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class DeviceServiceImpl implements DeviceService {
+public class DataDeviceServiceImpl implements DataDeviceService {
     private final DeviceRepository deviceRepository;
     private DeviceMapper MAPPER = DeviceMapper.INSTANCE;
 

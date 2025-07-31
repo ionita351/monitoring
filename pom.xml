@@ -28,6 +28,8 @@
         <module>server-ws</module>
         <module>client-ws</module>
 		<module>discovery-server</module>
+		<module>kafka-producer</module>
+		<module>kafka-consumer</module>
 	</modules>
 
 	<properties>
@@ -99,6 +101,18 @@
 			<dependency>
 				<groupId>com.example</groupId>
 				<artifactId>data-jpa</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>kafka-producer</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>kafka-consumer</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>

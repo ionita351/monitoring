@@ -10,6 +10,6 @@ public interface MeasurementMapper {
 
     MeasurementMapper INSTANCE = Mappers.getMapper(MeasurementMapper.class);
 
-    MeasurementDto measurementToMeasurementDto(Measurement location);
-    Measurement measurementDtoToMeasurement(MeasurementDto locationDto);
+    MeasurementDto toMeasurementDto(Measurement location);
+    Measurement toMeasurement(MeasurementDto locationDto);
 }

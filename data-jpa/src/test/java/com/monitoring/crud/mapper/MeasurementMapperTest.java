@@ -22,7 +22,7 @@ public class MeasurementMapperTest {
     void toLocation() {
         MeasurementDto dto = new MeasurementDto(ID, DEVICE_NUMBER, TIME_STAMP, LATITUDE, LONGITUDE, ALERT);
 
-        Measurement measurement = MeasurementMapper.INSTANCE.measurementDtoToMeasurement(dto);
+        Measurement measurement = MeasurementMapper.INSTANCE.toMeasurement(dto);
         assertEquals(ID, measurement.getId());
         assertEquals(DEVICE_NUMBER, measurement.getDeviceNumber());
         assertEquals(TIME_STAMP, measurement.getTimeStamp());
@@ -35,7 +35,7 @@ public class MeasurementMapperTest {
     void toLocationDto() {
         Measurement measurement = new Measurement(ID, DEVICE_NUMBER, TIME_STAMP, LATITUDE, LONGITUDE, ALERT);
 
-        MeasurementDto measurementDto = MeasurementMapper.INSTANCE.measurementToMeasurementDto(measurement);
+        MeasurementDto measurementDto = MeasurementMapper.INSTANCE.toMeasurementDto(measurement);
         assertEquals(ID, measurementDto.getId());
         assertEquals(DEVICE_NUMBER, measurementDto.getDeviceNumber());
         assertEquals(TIME_STAMP, measurementDto.getTimeStamp());

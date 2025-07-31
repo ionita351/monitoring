@@ -3,7 +3,7 @@ package com.monitoring.jpa.service;
 import com.monitoring.jpa.mapper.CarMapper;
 import com.monitoring.jpa.repository.CarRepository;
 import com.monitoring.model.CarDto;
-import com.monitoring.service.CarService;
+import com.monitoring.service.DataCarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CarServiceImpl implements CarService {
+public class DataCarServiceImpl implements DataCarService {
     private static final CarMapper MAPPER = CarMapper.INSTANCE;
 
     private final CarRepository carRepository;

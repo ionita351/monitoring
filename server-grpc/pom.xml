@@ -29,6 +29,11 @@
 
         <dependency>
             <groupId>com.example</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
             <artifactId>data-jpa</artifactId>
         </dependency>
 

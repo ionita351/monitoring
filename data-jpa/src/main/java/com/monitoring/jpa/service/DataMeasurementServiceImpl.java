@@ -5,7 +5,7 @@ import com.monitoring.jpa.mapper.MeasurementMapper;
 import com.monitoring.jpa.repository.DeviceRepository;
 import com.monitoring.jpa.repository.MeasurementRepository;
 import com.monitoring.model.MeasurementDto;
-import com.monitoring.service.MeasurementService;
+import com.monitoring.service.DataMeasurementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class MeasurementServiceImpl implements MeasurementService {
+public class DataMeasurementServiceImpl implements DataMeasurementService {
     private static final MeasurementMapper MAPPER = MeasurementMapper.INSTANCE;
 
     private final MeasurementRepository measurementRepository;
@@ -25,14 +25,14 @@ public class MeasurementServiceImpl implements MeasurementService {
     @Override
     public MeasurementDto create(MeasurementDto locationDto) {
         Measurement measurement = measurementRepository
-                .save(MAPPER.measurementDtoToMeasurement(locationDto));
+                .save(MAPPER.toMeasurement(locationDto));
         deviceRepository.findByDeviceNumber(measurement.getDeviceNumber())
                 .ifPresent(device -> device.setMeasurement(measurement));
-        return MAPPER.measurementToMeasurementDto(measurement);
+        return MAPPER.toMeasurementDto(measurement);
     }
 
     @Override
     public Optional<MeasurementDto> findById(UUID uuid) {
-        return measurementRepository.findById(uuid).map(MeasurementMapper.INSTANCE::measurementToMeasurementDto);
+        return measurementRepository.findById(uuid).map(MeasurementMapper.INSTANCE::toMeasurementDto);
     }
 }

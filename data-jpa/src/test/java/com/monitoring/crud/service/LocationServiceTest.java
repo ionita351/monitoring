@@ -3,8 +3,8 @@ package com.monitoring.crud.service;
 import com.monitoring.jpa.CrudApplication;
 import com.monitoring.model.DeviceDto;
 import com.monitoring.model.MeasurementDto;
-import com.monitoring.service.DeviceService;
-import com.monitoring.service.MeasurementService;
+import com.monitoring.service.DataDeviceService;
+import com.monitoring.service.DataMeasurementService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,10 +24,10 @@ public class LocationServiceTest {
     private static final boolean ALERT = true;
 
     @Autowired
-    private MeasurementService measurementService;
+    private DataMeasurementService measurementService;
 
     @Autowired
-    private DeviceService deviceService;
+    private DataDeviceService deviceService;
 
     @Test
     void createTest() {
