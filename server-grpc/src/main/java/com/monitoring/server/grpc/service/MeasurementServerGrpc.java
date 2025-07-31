@@ -1,7 +1,6 @@
 package com.monitoring.server.grpc.service;
 
-import com.monitoring.model.MeasurementDto;
-import com.monitoring.server.grpc.converter.MeasurementConverter;
+import com.monitoring.server.grpc.mapper.MeasurementMapper;
 import com.monitoring.service.MeasurementService;
 import com.monitoring.stub.Measurement;
 import com.monitoring.stub.MeasurementStubProviderGrpc;
@@ -14,12 +13,13 @@ import net.devh.boot.grpc.server.service.GrpcService;
 @GrpcService
 @RequiredArgsConstructor
 public class MeasurementServerGrpc extends MeasurementStubProviderGrpc.MeasurementStubProviderImplBase {
+    private static final MeasurementMapper MEASUREMENT_MAPPER = MeasurementMapper.INSTANCE;
     private final MeasurementService measurementService;
 
     @Override
     public void sendOne(Measurement request, StreamObserver<Response> responseObserver) {
         receive(responseObserver, () -> {
-            measurementService.create(MeasurementConverter.toMeasurementDto(request));
+            measurementService.create(MEASUREMENT_MAPPER.toMeasurementDto(request));
         });
     }
 
@@ -27,7 +27,7 @@ public class MeasurementServerGrpc extends MeasurementStubProviderGrpc.Measureme
     public void sendMany(Measurements request, StreamObserver<Response> responseObserver) {
         receive(responseObserver, () -> {
             request.getMessagesList().stream()
-                    .map(MeasurementServerGrpc::toDto)
+                    .map(MEASUREMENT_MAPPER::toMeasurementDto)
                     .forEach(measurementService::create);
         });
     }
@@ -46,15 +46,5 @@ public class MeasurementServerGrpc extends MeasurementStubProviderGrpc.Measureme
         }
         responseObserver.onNext(response);
         responseObserver.onCompleted();
-
-    }
-
-    private static MeasurementDto toDto(Measurement measurement) {
-        MeasurementDto dto = new MeasurementDto();
-        dto.setDeviceNumber(measurement.getDeviceNumber());
-        dto.setLatitude(measurement.getLatitude());
-        dto.setLongitude(measurement.getLongitude());
-        dto.setAlert(measurement.getAlert());
-        return dto;
     }
 }

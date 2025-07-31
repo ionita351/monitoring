@@ -1,5 +1,7 @@
 package com.monitoring.client.ws.client;
 
+import com.monitoring.client.ws.mapper.MeasurementMapper;
+import com.monitoring.client.ws.mapper.ResponseMapper;
 import com.monitoring.model.MeasurementDto;
 import com.monitoring.model.ResponseDto;
 import com.monitoring.service.MeasurementClient;
@@ -18,7 +20,9 @@ import java.util.List;
 
 @Component
 public class MeasurementWsClient  extends WebServiceGatewaySupport implements MeasurementClient {
-    private final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
+    private static final MeasurementMapper MEASUREMENT_MAPPER = MeasurementMapper.INSTANCE;
+    private static final ResponseMapper RESPONSE_MAPPER = ResponseMapper.INSTANCE;
+    private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 
     @Autowired
     private DiscoveryClient discoveryClient;
@@ -30,8 +34,9 @@ public class MeasurementWsClient  extends WebServiceGatewaySupport implements Me
             getWebServiceTemplate().setDefaultUri(serviceInstance.getUri().toString() + "/ws");
 
             JAXBElement<WsResponse> wsResponse = (JAXBElement<WsResponse>) getWebServiceTemplate()
-                    .marshalSendAndReceive(OBJECT_FACTORY.createReceiveOneRequest(toWsMeasurement(measurement)));
-            return toResponseDto(wsResponse.getValue());
+                    .marshalSendAndReceive(OBJECT_FACTORY
+                            .createReceiveOneRequest(MEASUREMENT_MAPPER.toWsMeasurement(measurement)));
+            return RESPONSE_MAPPER.toResponseDto(wsResponse.getValue());
         } catch (Throwable throwable) {
             return ResponseDto.error(throwable.getMessage());
         }
@@ -43,28 +48,30 @@ public class MeasurementWsClient  extends WebServiceGatewaySupport implements Me
             ServiceInstance serviceInstance = discoveryClient.getInstances("server-ws").stream().findFirst().orElse(null);
             getWebServiceTemplate().setDefaultUri(serviceInstance.getUri().toString() + "/ws");
 
-            List<WsMeasurement> listWsMeasurements = measurements.stream().map(MeasurementWsClient::toWsMeasurement).toList();
+            List<WsMeasurement> listWsMeasurements = measurements.stream()
+                    .map(MEASUREMENT_MAPPER::toWsMeasurement)
+                    .toList();
             WsMeasurements wsMeasurements = OBJECT_FACTORY.createWsMeasurements();
             wsMeasurements.getMeasurements().addAll(listWsMeasurements);
 
             JAXBElement<WsResponse> wsResponse = (JAXBElement<WsResponse>) getWebServiceTemplate()
                     .marshalSendAndReceive(OBJECT_FACTORY.createReceiveManyRequest(wsMeasurements));
-            return toResponseDto(wsResponse.getValue());
+            return RESPONSE_MAPPER.toResponseDto(wsResponse.getValue());
         } catch (Throwable throwable) {
             return ResponseDto.error(throwable.getMessage());
         }
     }
 
-    private static WsMeasurement toWsMeasurement(MeasurementDto dto) {
-        WsMeasurement wsMeasurement = new WsMeasurement();
-        wsMeasurement.setDeviceNumber(dto.getDeviceNumber());
-        wsMeasurement.setLatitude(dto.getLatitude());
-        wsMeasurement.setLongitude(dto.getLongitude());
-        wsMeasurement.setAlert(dto.isAlert());
-        return wsMeasurement;
-    }
-
-    private static ResponseDto toResponseDto(WsResponse wsResponse) {
-        return new ResponseDto(wsResponse.isSuccess(), wsResponse.getErrorMessage());
-    }
+//    private static WsMeasurement toWsMeasurement(MeasurementDto dto) {
+//        WsMeasurement wsMeasurement = new WsMeasurement();
+//        wsMeasurement.setDeviceNumber(dto.getDeviceNumber());
+//        wsMeasurement.setLatitude(dto.getLatitude());
+//        wsMeasurement.setLongitude(dto.getLongitude());
+//        wsMeasurement.setAlert(dto.isAlert());
+//        return wsMeasurement;
+//    }
+//
+//    private static ResponseDto toResponseDto(WsResponse wsResponse) {
+//        return new ResponseDto(wsResponse.isSuccess(), wsResponse.getErrorMessage());
+//    }
 }

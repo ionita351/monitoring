@@ -1,7 +1,7 @@
 package com.monitoring.ws.server.endpoint;
 
-import com.monitoring.model.MeasurementDto;
 import com.monitoring.service.MeasurementService;
+import com.monitoring.ws.server.mapper.MeasurementMapper;
 import jakarta.xml.bind.JAXBElement;
 import lombok.RequiredArgsConstructor;
 import monitoring.com.measurement.ObjectFactory;
@@ -19,6 +19,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 public class MeasurementEndpoint {
     private static final String NAMESPACE_URI = "http://com.monitoring/measurement";
     private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
+    private static final MeasurementMapper MEASUREMENT_MAPPER = MeasurementMapper.INSTANCE;
 
     private final MeasurementService measurementService;
 
@@ -26,7 +27,7 @@ public class MeasurementEndpoint {
     @ResponsePayload
     public JAXBElement<WsResponse> receiveOne(@RequestPayload JAXBElement<WsMeasurement> request) {
         return receive(() -> {
-            measurementService.create(toMeasurementDto(request.getValue()));
+            measurementService.create(MEASUREMENT_MAPPER.toMeasurementDto(request.getValue()));
         });
     }
 
@@ -35,7 +36,7 @@ public class MeasurementEndpoint {
     public JAXBElement<WsResponse> receiveMany(@RequestPayload JAXBElement<WsMeasurements> request) {
         return receive(() -> {
             request.getValue().getMeasurements().forEach(wsMeasurement -> {
-                measurementService.create(toMeasurementDto(wsMeasurement));
+                measurementService.create(MEASUREMENT_MAPPER.toMeasurementDto(wsMeasurement));
             });
         });
     }
@@ -50,14 +51,5 @@ public class MeasurementEndpoint {
             response.setErrorMessage(throwable.getMessage());
         }
         return OBJECT_FACTORY.createReceiveManyResponse(response);
-    }
-
-    private static MeasurementDto toMeasurementDto(WsMeasurement wsMeasurement) {
-        MeasurementDto dto = new MeasurementDto();
-        dto.setDeviceNumber(wsMeasurement.getDeviceNumber());
-        dto.setLatitude(wsMeasurement.getLatitude());
-        dto.setLongitude(wsMeasurement.getLongitude());
-        dto.setAlert(wsMeasurement.isAlert());
-        return dto;
     }
 }
