@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Configuration
 public class KafkaConsumerConfig {
-    @Value(value = "${kafka.bootstrapAddress:http://localhost:1111}")
+    @Value(value = "${kafka.bootstrapAddress:http://localhost:9092}")
     private String bootstrapAddress;
 
     @Bean
@@ -31,8 +31,10 @@ public class KafkaConsumerConfig {
         log.debug(configProps.entrySet().stream()
                 .map(e -> e.getKey() + " " + e.getValue())
                 .collect(Collectors.joining(", ")));
+        JsonDeserializer<Object> payloadJsonDeserializer = new JsonDeserializer<>();
+        payloadJsonDeserializer.addTrustedPackages("com.monitoring.model");
         return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(),
-                new JsonDeserializer<>(Object.class));
+                payloadJsonDeserializer);
     }
 
     @Bean

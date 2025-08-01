@@ -9,22 +9,27 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>server-common</artifactId>
+    <artifactId>server-stomp</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>model</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>data-jpa</artifactId>
+            <artifactId>server-common</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>kafka-producer</artifactId>
+            <artifactId>kafka-consumer</artifactId>
         </dependency>
     </dependencies>
 

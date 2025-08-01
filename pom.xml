@@ -31,7 +31,8 @@
 		<module>kafka-producer</module>
 		<module>kafka-consumer</module>
         <module>server-common</module>
-    </modules>
+		<module>server-stomp</module>
+	</modules>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>

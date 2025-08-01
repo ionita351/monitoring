@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class KafkaProducerServiceImpl<T> implements KafkaProducerService<T> {
     private final KafkaTemplate<String, T> kafkaTemplate;
 
-    @Value("kafka.topic:measurement")
+    @Value("${kafka.topic:measurement}")
     public String topic;
 
     @Override

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Configuration
 public class KafkaProducerConfig {
-    @Value(value = "${kafka.bootstrapAddress:http://localhost:1111}")
+    @Value(value = "${kafka.bootstrapAddress:http://localhost:9092}")
     private String bootstrapAddress;
     @Bean
     public ProducerFactory<String, Object> producerFactory() {
