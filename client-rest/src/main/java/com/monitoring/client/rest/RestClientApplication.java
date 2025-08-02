@@ -10,19 +10,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.util.Random;
 import java.util.UUID;
 
 @Slf4j
 @SpringBootApplication(scanBasePackages = "com.monitoring")
 @EnableScheduling
 public class RestClientApplication {
-    private static MeasurementDto MEASUREMENT = new MeasurementDto(
-            UUID.randomUUID(),
-            "APU_REST",
-            null,
-            1D,
-            2D,
-            true);
+    private static MeasurementDto MEASUREMENT = MeasurementDto.builder()
+            .deviceNumber("APU_REST")
+            .latitude(59.57)
+            .longitude(30.19)
+            .alert(true)
+            .build();
 
     public static void main(String... args) {
         SpringApplication.run(RestClientApplication.class, args);

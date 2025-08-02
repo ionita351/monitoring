@@ -1,5 +1,5 @@
-databaseChangeLog: #параметр в котором находятся миграции
+databaseChangeLog: # миграции
   - include: # список активных миграций
-      file: db/changelog/changeset/create-tables.yaml
-  - include:
-      file: db/changelog/changeset/create-indexes.yaml
+      file: db/changelog/changeset/create-tables.sql
+  - include: # список активных миграций
+      file: db/changelog/changeset/create-data.sql

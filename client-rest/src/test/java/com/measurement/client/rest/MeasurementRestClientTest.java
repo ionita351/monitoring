@@ -15,9 +15,9 @@ import java.util.UUID;
 @SpringBootTest(classes = RestClientApplication.class)
 public class MeasurementRestClientTest {
     private final MeasurementDto DATA = new MeasurementDto(
-            UUID.randomUUID(),
+            null,
             "DN",
-            LocalDateTime.now(),
+            null,
             1D,
             2D,
             true);

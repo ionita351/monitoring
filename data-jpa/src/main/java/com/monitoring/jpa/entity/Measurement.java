@@ -31,5 +31,6 @@ public class Measurement {
         if (id == null) {
             id = UUID.randomUUID();
         }
+        timeStamp = LocalDateTime.now();
     }
 }
