@@ -1,6 +1,5 @@
 package com.monitoring.jpa.service;
 
-import com.monitoring.jpa.entity.Device;
 import com.monitoring.jpa.entity.Measurement;
 import com.monitoring.jpa.mapper.MeasurementMapper;
 import com.monitoring.jpa.repository.DeviceRepository;
@@ -41,6 +40,7 @@ public class DataMeasurementServiceImpl implements DataMeasurementService {
         return measurementRepository.findById(uuid).map(MeasurementMapper.INSTANCE::toMeasurementDto);
     }
 
+    @Override
     public List<MeasurementDto> findAllByRequest(MeasurementDtoRequest request) {
         List<Specification<Measurement>> specifications = new ArrayList<>();
         if (request != null) {

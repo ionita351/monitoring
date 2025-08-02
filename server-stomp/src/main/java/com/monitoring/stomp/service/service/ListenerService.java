@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ListenerService implements KafkaConsumerService<MeasurementDto> {
-    private SimpMessageSendingOperations messagingTemplate;
+    private final SimpMessageSendingOperations messagingTemplate;
 
 
     @Override
     public void receive(MeasurementDto dto) {
-        log.debug("Have got message: " + dto);
+        log.info("Have got message: " + dto);
         messagingTemplate.convertAndSend("/topic/measurements", dto);
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +34,7 @@ public class DataCarServiceImpl implements DataCarService {
         return MAPPER.carToCarDto(carRepository.save(MAPPER.carDtoToCar(car)));
     }
 
+    @Override
     public List<CarDto> findAllByRequest(CarDtoRequest request) {
         List<Specification<Car>> specifications = new ArrayList<>();
         if (request != null) {

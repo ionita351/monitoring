@@ -2,7 +2,6 @@ package com.monitoring.jpa.service;
 
 import com.monitoring.jpa.entity.Device;
 import com.monitoring.jpa.mapper.DeviceMapper;
-import com.monitoring.jpa.repository.CarRepository;
 import com.monitoring.jpa.repository.DeviceRepository;
 import com.monitoring.model.DeviceDto;
 import com.monitoring.model.DeviceDtoRequest;
@@ -34,6 +33,7 @@ public class DataDeviceServiceImpl implements DataDeviceService {
         return MAPPER.deviceToDeviceDto(deviceRepository.save(MAPPER.deviceDtoToDevice(device)));
     }
 
+    @Override
     public List<DeviceDto> findAllByRequest(DeviceDtoRequest request) {
         List<Specification<Device>> specifications = new ArrayList<>();
         if (request != null) {
