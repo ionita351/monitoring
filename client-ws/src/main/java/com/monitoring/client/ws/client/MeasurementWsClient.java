@@ -61,17 +61,4 @@ public class MeasurementWsClient  extends WebServiceGatewaySupport implements Me
             return ResponseDto.error(throwable.getMessage());
         }
     }
-
-//    private static WsMeasurement toWsMeasurement(MeasurementDto dto) {
-//        WsMeasurement wsMeasurement = new WsMeasurement();
-//        wsMeasurement.setDeviceNumber(dto.getDeviceNumber());
-//        wsMeasurement.setLatitude(dto.getLatitude());
-//        wsMeasurement.setLongitude(dto.getLongitude());
-//        wsMeasurement.setAlert(dto.isAlert());
-//        return wsMeasurement;
-//    }
-//
-//    private static ResponseDto toResponseDto(WsResponse wsResponse) {
-//        return new ResponseDto(wsResponse.isSuccess(), wsResponse.getErrorMessage());
-//    }
 }

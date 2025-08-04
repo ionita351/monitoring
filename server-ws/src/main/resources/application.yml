@@ -3,7 +3,16 @@ spring:
     name: server-ws
 server:
   port: ${PORT:8091}
+datasource:
+  url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/postgres
+  username: postgres
+  password: postgres
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:${EUREKA_PORT:8761}/eureka/
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+
+kafka:
+  producer:
+    enabled: true
+  bootstrapAddress: http://${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}

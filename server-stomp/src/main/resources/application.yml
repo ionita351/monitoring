@@ -3,3 +3,10 @@ spring:
     name: server-stomp
 server:
   port: ${PORT:8099}
+
+kafka:
+  consumer:
+    enabled: true
+  producer:
+    enabled: false
+  bootstrapAddress: http://${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}

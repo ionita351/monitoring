@@ -8,7 +8,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface DataCarService {
-    Optional<CarDto> findById(UUID id);
     CarDto create(CarDto car);
+    Optional<CarDto> findById(UUID id);
+    Optional<CarDto> findByDeviceNumber(String deviceNumber);
     List<CarDto> findAllByRequest(CarDtoRequest request);
 }

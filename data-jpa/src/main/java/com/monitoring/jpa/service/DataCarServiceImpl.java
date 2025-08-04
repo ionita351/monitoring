@@ -30,6 +30,11 @@ public class DataCarServiceImpl implements DataCarService {
     }
 
     @Override
+    public Optional<CarDto> findByDeviceNumber(String deviceNumber) {
+        return carRepository.findOne(CarRepository.Spec.byDeviceNumber(deviceNumber)).map(MAPPER::carToCarDto);
+    }
+
+    @Override
     public CarDto create(CarDto car) {
         return MAPPER.carToCarDto(carRepository.save(MAPPER.carDtoToCar(car)));
     }

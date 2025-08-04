@@ -1,7 +1,9 @@
 package com.monitoring.common.service;
 
 import com.monitoring.kafka.producer.service.KafkaProducerService;
+import com.monitoring.model.CarDto;
 import com.monitoring.model.MeasurementDto;
+import com.monitoring.service.DataCarService;
 import com.monitoring.service.DataMeasurementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,7 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public class MeasurementServiceImp implements MeasurementService {
     private final DataMeasurementService dataMeasurementService;
-    private final KafkaProducerService<MeasurementDto> kafkaProducerService;
+    private final DataCarService dataCarService;
+    private final KafkaProducerService<CarDto> kafkaProducerService;
 
     private final Map<String, MeasurementDto> currentValues = new ConcurrentHashMap<>();
     private final Map<String, UUID> sentMeasurements = new HashMap<>();
@@ -38,8 +42,13 @@ public class MeasurementServiceImp implements MeasurementService {
             currentValues.values().forEach(e -> {
                 UUID id = sentMeasurements.get(e.getDeviceNumber());
                 if (id == null || !id.equals(e.getId())) {
-                    kafkaProducerService.send(e.getDeviceNumber(), e);
                     sentMeasurements.put(e.getDeviceNumber(), e.getId());
+                    Optional<CarDto> optCarDto = dataCarService.findByDeviceNumber(e.getDeviceNumber());
+                    if (optCarDto.isPresent()) {
+                        kafkaProducerService.send(e.getDeviceNumber(), optCarDto.get());
+                    } else {
+                        log.warn("Device number " + e.getDeviceNumber() + " isn't bound to car.");
+                    }
                 }
             });
         } catch (Throwable throwable) {
