@@ -32,6 +32,8 @@
 		<module>kafka-consumer</module>
         <module>server-common</module>
 		<module>server-stomp</module>
+		<module>server-reactive</module>
+		<module>client-reactive</module>
 	</modules>
 
 	<properties>
@@ -128,6 +130,13 @@
 				<groupId>com.fasterxml.jackson.datatype</groupId>
 				<artifactId>jackson-datatype-jsr310</artifactId>
 				<version>2.19.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.r2dbc</groupId>
+				<artifactId>r2dbc-postgresql</artifactId>
+				<version>0.8.13.RELEASE</version>
+				<scope>runtime</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

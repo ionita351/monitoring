@@ -3,3 +3,5 @@ databaseChangeLog: # миграции
       file: db/changelog/changeset/create-tables.sql
   - include: # список активных миграций
       file: db/changelog/changeset/create-data.sql
+  - include: # список активных миграций
+      file: db/changelog/changeset/update-tables.sql

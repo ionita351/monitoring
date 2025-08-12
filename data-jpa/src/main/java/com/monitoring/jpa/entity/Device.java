@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class Device {
     @Id
     private UUID id;
+    private LocalDateTime timeStamp;
     private String deviceNumber;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "measurement_id", referencedColumnName = "id")

@@ -43,7 +43,7 @@ public class DeviceMapperTest {
     @Test
     void deviceToDeviceDtoTest() {
         Measurement measurement = new Measurement(MEASUREMENT_ID, DEVICE_NUMBER, TIME_STAMP, LATITUDE, LONGITUDE, ALERT);
-        Device device = new Device(ID, DEVICE_NUMBER, measurement);
+        Device device = new Device(ID, LocalDateTime.now(), DEVICE_NUMBER, measurement);
 
         DeviceDto dto = DeviceMapper.INSTANCE.deviceToDeviceDto(device);
         assertEquals(ID, dto.getId());

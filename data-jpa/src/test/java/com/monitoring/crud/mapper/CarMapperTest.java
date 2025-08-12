@@ -55,8 +55,8 @@ public class CarMapperTest {
     @Test
     void carToCarDtoTest() {
         Measurement measurement = new Measurement(MEASUREMENT_ID, DEVICE_NUMBER, TIME_STAMP, LATITUDE, LONGITUDE, ALERT);
-        Device device = new Device(DEVICE_ID, DEVICE_NUMBER, measurement);
-        Car car = new Car(ID, STATE_SIGN, BRAND, device);
+        Device device = new Device(DEVICE_ID, LocalDateTime.now(), DEVICE_NUMBER, measurement);
+        Car car = new Car(ID, LocalDateTime.now(), STATE_SIGN, BRAND, device);
 
         CarDto dto = CarMapper.INSTANCE.carToCarDto(car);
         assertEquals(ID, dto.getId());
