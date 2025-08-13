@@ -1,0 +1,8 @@
+server:
+  port: ${SERVER_PORT:9099}
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/postgres
+    username: postgres
+    password: postgres

@@ -34,6 +34,4 @@ public class ReactiveClientApplication {
         ResponseDto dto = client.sendOne(MEASUREMENT);
         log.info("APU_REACTIVE. Send message. Have got: " + dto);
     }
-
-
 }

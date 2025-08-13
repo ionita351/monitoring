@@ -3,7 +3,9 @@ package com.monitoring.client.reactive.client;
 import com.monitoring.model.MeasurementDto;
 import com.monitoring.model.ResponseDto;
 import com.monitoring.service.MeasurementClient;
-import lombok.RequiredArgsConstructor;
+import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,12 +13,20 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+@Slf4j
 @Component
-@RequiredArgsConstructor
 public class MeasurementReactiveClient implements MeasurementClient {
-    private final WebClient webClient = WebClient.builder()
-            .baseUrl("http://localhost:9999/measurement/")
-            .build();
+    private WebClient webClient;
+
+    @Value("${destination.url}")
+    private String baseUrl;
+
+    @PostConstruct
+    public void init() {
+        webClient = WebClient.builder()
+                .baseUrl(baseUrl)
+                .build();
+    }
 
     @Override
     public ResponseDto sendOne(MeasurementDto measurement) {

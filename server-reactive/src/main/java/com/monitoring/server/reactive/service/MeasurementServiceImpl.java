@@ -6,7 +6,9 @@ import com.monitoring.model.ResponseDto;
 import com.monitoring.server.reactive.mapper.MeasurementMapper;
 import com.monitoring.server.reactive.repository.R2MeasurementRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -15,6 +17,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MeasurementServiceImpl implements MeasurementService {
     private static final MeasurementMapper MAPPER = MeasurementMapper.INSTANCE;
     private final R2MeasurementRepository measurementRepository;
