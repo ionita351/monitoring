@@ -12,6 +12,8 @@ import java.util.UUID;
 public interface MeasurementService {
     Mono<ResponseDto> receiveOne(MeasurementDto measurement);
     Mono<ResponseDto> receiveMany(List<MeasurementDto> measurements);
+
+    Mono<MeasurementDto> create(MeasurementDto measurement);
     Mono<MeasurementDto> findById(UUID id);
     Flux<MeasurementDto> findAllByRequest(MeasurementDtoRequest request);
 }

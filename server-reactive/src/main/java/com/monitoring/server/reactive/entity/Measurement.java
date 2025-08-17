@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
 public class Measurement {
     @Id
     private UUID id;
