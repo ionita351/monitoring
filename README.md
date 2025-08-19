@@ -2,8 +2,8 @@
 ================================
 
 Упрощенная модель мониторинга объектов.
-- Сервера принимающие координаты по разным технологиям (server-rest, server-grpc, server-ws)
-- Клиенты передающие координаты ( (client-rest, client-feign), client-grpc, client-ws)
+- Сервера принимающие координаты по разным технологиям (server-rest, server-grpc, server-ws, server-reactive)
+- Клиенты передающие координаты ( (client-rest, client-feign), client-grpc, client-ws, client-reactive)
 Сервера получая координаты фиксируют их в базе данных и транслируют в брокер KAFKA.
 Потребители информации (сервер server-stomp) получают из через брокер KAFKA и через протокол STOMP предоставляют их потребителям.
 
