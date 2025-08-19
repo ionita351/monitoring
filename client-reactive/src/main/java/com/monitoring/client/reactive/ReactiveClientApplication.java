@@ -7,13 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Slf4j
 @SpringBootApplication
 @EnableScheduling
+@EnableDiscoveryClient
 public class ReactiveClientApplication {
     private static MeasurementDto MEASUREMENT = MeasurementDto.builder()
             .deviceNumber("APU_REACTIVE")

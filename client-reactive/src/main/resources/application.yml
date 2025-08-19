@@ -1,0 +1,15 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+destination:
+  url: http://${SERVER_HOST:localhost}:${SERVER_PORT:9099}/measurement/
+
+spring:
+  application:
+    name: client-reactive
+  main:
+    web-application-type: none

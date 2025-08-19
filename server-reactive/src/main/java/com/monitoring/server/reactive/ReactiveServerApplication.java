@@ -3,8 +3,10 @@ package com.monitoring.server.reactive;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
+@EnableDiscoveryClient
 @EnableR2dbcRepositories
 @SpringBootApplication(scanBasePackages = "com.monitoring", exclude =  {DataSourceAutoConfiguration.class })
 public class ReactiveServerApplication {

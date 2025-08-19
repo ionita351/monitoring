@@ -89,6 +89,18 @@ services:
     depends_on:
       - discover-server
 
+  server-reactive:
+    image: server-reactive
+    environment:
+      EUREKA_HOST: discover-server
+      POSTGRES_HOST: postgres
+      KAFKA_HOST: kafka
+      KAFKA_PORT: 9093
+    restart: always
+    depends_on:
+      - discover-server
+      - kafka
+
   server-stomp:
     image: server-stomp
     restart: always
@@ -129,6 +141,14 @@ services:
       EUREKA_HOST: discover-server
     depends_on:
       - server-ws
+
+  client-reactive:
+    image: client-reactive
+    environment:
+      EUREKA_HOST: discover-server
+      SERVER_HOST: server-reactive
+    depends_on:
+      - server-reactive
 
 volumes:
   postgres:

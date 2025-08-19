@@ -2,7 +2,14 @@ server:
   port: ${SERVER_PORT:9099}
 
 spring:
+  application:
+    name: server-reactive
   r2dbc:
     url: r2dbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/postgres
     username: postgres
     password: postgres
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/

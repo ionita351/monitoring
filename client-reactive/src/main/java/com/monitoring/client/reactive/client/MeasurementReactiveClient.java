@@ -4,6 +4,7 @@ import com.monitoring.model.MeasurementDto;
 import com.monitoring.model.ResponseDto;
 import com.monitoring.service.MeasurementClient;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -15,18 +16,9 @@ import java.util.List;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class MeasurementReactiveClient implements MeasurementClient {
-    private WebClient webClient;
-
-    @Value("${destination.url}")
-    private String baseUrl;
-
-    @PostConstruct
-    public void init() {
-        webClient = WebClient.builder()
-                .baseUrl(baseUrl)
-                .build();
-    }
+    private final WebClient.Builder webClientBuilder;
 
     @Override
     public ResponseDto sendOne(MeasurementDto measurement) {
@@ -39,7 +31,7 @@ public class MeasurementReactiveClient implements MeasurementClient {
     }
 
     private <T> ResponseDto sendData(T measurements) {
-        return (ResponseDto) webClient.post()
+        return (ResponseDto) webClientBuilder.build().post()
                 .body(BodyInserters.fromValue(measurements))
                 .exchangeToMono(clientResponse -> {
                     if (clientResponse.statusCode().is2xxSuccessful()) {

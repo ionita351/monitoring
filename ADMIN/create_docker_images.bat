@@ -8,6 +8,8 @@ cd ../server-stomp
 docker build -t server-stomp .
 cd ../server-ws
 docker build -t server-ws .
+cd ../server-reactive
+docker build -t server-reactive .
 
 cd ../client-feign
 docker build -t client-feign .
@@ -17,3 +19,5 @@ cd ../client-rest
 docker build -t client-rest .
 cd ../client-ws
 docker build -t client-ws .
+cd ../client-reactive
+docker build -t client-reactive .
